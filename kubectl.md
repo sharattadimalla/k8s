@@ -1,3 +1,4 @@
+### kubectl commands
 
 ```
 # check k8s version
@@ -35,4 +36,35 @@ kubectl exec -it my-nginx sh
 
 # edit the yaml file
 kubectl edit -f nginx_pod.yaml
+
+# create or apply deployments
+kubectl apply -f file.deployment.yaml
+kubectl create -f file.deployment.yaml --save-config
+
+# get deployments
+kubectl get deployments
+
+# list all deployments and their labels
+kubectl get deployments --show-labels
+
+# get deployment with a specific label
+kubectl get deployment -l app=nginx
+
+# delete deployment
+kubectl delete deployment deployment-name
+kubectl delete -f file.deployment.yaml
+
+# scale deployment pods
+kubectl scale deployment deployment-name --replicas=2
+kubectl scale -f file.deployment.yaml --replicas=2
+
+# describe deployment
+kubectl describe deployment my-nginx
+
+# get deployment by labels
+kubectl get deployment -l app=my-nginx
+
+# scale replicasets for a deployment
+kubectl scale deployment my-nginx --replicas=4
+
 ```
