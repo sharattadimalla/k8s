@@ -33,4 +33,14 @@ spec:
 # You will be kicked out of the pod
 # Inspect pod events by using describe
 # kubectl describe pod my-nginx
+##### Output ######
+# Events:
+#  Type     Reason     Age                  From               Message
+#  ----     ------     ----                 ----               -------
+#  Normal   Scheduled  2m23s                default-scheduler  Successfully assigned default/my-nginx to kind-control-plane#
+#  Normal   Pulled     24s (x2 over 2m23s)  kubelet            Container image "nginx:alpine" already present on machine
+#  Normal   Created    24s (x2 over 2m23s)  kubelet            Created container my-nginx
+#  Normal   Started    24s (x2 over 2m22s)  kubelet            Started container my-nginx
+#  Warning  Unhealthy  24s                  kubelet            Liveness probe failed: HTTP probe failed with statuscode: 404
+#  Normal   Killing    24s                  kubelet            Container my-nginx failed liveness probe, will be restarted
 #################################################
