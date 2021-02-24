@@ -1,27 +1,40 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: my-nginx
+  name: liveness-exec
   labels:
     app: nginx
     rel: stable
 spec:
   containers:
-  - name: my-nginx
+  - name: liveness-exec
     image: nginx:alpine
     ports:
     - containerPort: 80
+    args:
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 120
     livenessProbe:
-      httpGet:
-        path: /index.html
-        port: 80
-      initialDelaySeconds: 15
-      timeoutSeconds: 10
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
       periodSeconds: 5
-      failureThreshold: 1
 
-# livenessProbe checks /index.html on port 80
-# waits 15 seconds
-# timeout after 5 seconds
+# livenessProbe checks exec command cat /tmp/healthy
+# waits 5 seconds
 # check every 5 seconds
-# Allow 1 failure before failing the pod
+##### Output ######
+# kubectl apply -f nginx_pod_liveness_probe_execAction.yaml
+# kubectl describe pod my-nginx
+# Events:
+#  Type     Reason     Age                From               Message
+#  ----     ------     ----               ----               -------
+#  Normal   Scheduled  56s                default-scheduler  Successfully assigned default/my-nginx to kind-control-plane
+#  Normal   Pulled     55s                kubelet            Container image "nginx:alpine" already present on machine
+#  Normal   Created    55s                kubelet            Created container my-nginx
+#  Normal   Started    55s                kubelet            Started container my-nginx
+#  Warning  Unhealthy  11s (x3 over 21s)  kubelet            Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
+#  Normal   Killing    11s                kubelet            Container my-nginx failed liveness probe, will be restarted
