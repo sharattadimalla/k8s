@@ -11,7 +11,7 @@ kubectl cluster-info
 kubectl get all
 
 # creating pods imperative way
-kubectl create my-nginx --image=nginx-alpine
+kubectl run my-nginx-standalone --image=nginx-alpine
 
 # creating pods via yaml
 kubectl apply -f nginx_pod.yaml

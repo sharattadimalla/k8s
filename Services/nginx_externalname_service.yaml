@@ -1,0 +1,11 @@
+apiVerson: v1
+kind: Service
+metadata:
+  name: external-service
+  labels:
+    app: my-nginx
+spec:
+  type: ExternalName
+  externalName: google.com
+  ports:
+  - port: 9000
