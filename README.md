@@ -29,7 +29,7 @@
 * ExternalName - maps a service to a DNS name
     * Allows a service to act as a proxy to external service
     * External service details are hidden from cluster
-    
+
 #### Clusterip Service in Action
 
 * Create a deployment with label `app: my-nginx` assigned to pods
@@ -40,8 +40,36 @@
     curl http://nginx-clusterip:8080
     ```
 
-## Storage Options
+## Storage Options - Volumes
 
+How do you store application state/data and exchange it between pods in k8s?
+
+Volumes
+
+* Pods and their file systems are ephemeral
+* Volumes can be used to store sate/data and use it in a Pod
+* A Pod can have multiple volumes attached to it
+* Containers rely on mountPath to access a volumes
+* k8s supports
+    * volumes
+    * Persistent Volumes
+    * Persistent Volume Claims
+    * Storage Classes
+
+### Volumes
+
+* volume reference to a storage location
+* must have a unique name
+* A volume mount refers a volume by name and defines a mountPath
+
+## Volume Type
+
+* emptDir - empty directory for storing transient data. Sharing data within containers in a pod. **Tied to the life of the Pod**
+* hostPath - pod mounts to a node's file system.
+* nfs - A NFS (Network File System) mounted into the Pod
+* configMap - storing key value pairs and secrets are for storing sensitive data
+* persistentVolumeClaim - provides Pod with more persistent storage option
+* cloud - 
 
 ## ConfigMaps and Secrets
 
@@ -50,5 +78,3 @@
 
 
 ## Pulling it all together
-
- 
