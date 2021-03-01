@@ -71,6 +71,35 @@ Volumes
 * persistentVolumeClaim - provides Pod with more persistent storage option
 * cloud - 
 
+### Persistent Volume
+
+* A PersistVolume (PV) is a cluster-wide storage unit provisioned by an administrator with a lifecycle independent of the pod
+* A PersistentVolumeClaim (PVC) is a request for a storage unit (PV)
+* Available to Pod if it gets rescheduled to a different Node
+* Rely on a storage provider such as NFS, cloud storage
+* Associated with a Pod by using PVC
+
+How does it works?
+1. Create a network storage resource(NFS, cloud etc)
+2. Define a PersistentVolume(PV) and registered with Kubernetes API
+3. Create a PersistentVolumeClaim (PVC)
+4. k8s binds PVC to PV
+5. Pod template Volume references the PVC
+
+
+### Storage Classes
+
+A StorageClass (SC) is a type of storage template that can be used to
+dynamically provision storage
+
+How does it work?
+1. Create Storage Class
+2. Create PersistentVolumeClaim (PVC) that references StorageClass (SC)
+3. k8s uses StorageClass provisioner to dynamically create a PersistentVolume
+4. Storage provisioned, PersistentVolume created and bounded to
+PersistentVolumeClaim (PVC)
+5. Pod Volume reference PersistentVolumeClaim (PVC)
+
 ## ConfigMaps and Secrets
 
 
